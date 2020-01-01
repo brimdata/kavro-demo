@@ -13,8 +13,12 @@ With this simple end-to-end working, it's hoped the services can then be used to
 
 # Prerequisites
 
-* Java (I've tested with Java 8 Update 231 on Mac)
-* Python 3 (I've tested with Python 3.7.4 on Mac)
+You'll need `java` and `python3` installed. I've successfully tested on both Mac and Linux using the versions in the following table. It may work with others.
+
+|**Dependency**|**Mac version**|**Linux version**|
+|--------------|---------------|-----------------|
+| `java`       | Java 8 Update 231 | openjdk version 11.0.5 |
+| `python3`    | 3.7.4         | 3.6.9           |
 
 # Installing services
 
