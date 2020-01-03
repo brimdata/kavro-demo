@@ -12,8 +12,7 @@ message_serializer = MessageSerializer(client)
 consumer = KafkaConsumer(TOPIC_NAME,
                          auto_offset_reset='earliest',
                          bootstrap_servers=['127.0.0.1:9092'],
-                         api_version=(0, 10),
-                         consumer_timeout_ms=1000)
+                         api_version=(0, 10))
 
 for msg in consumer:
     message_decoded = message_serializer.decode_message(msg.value)
