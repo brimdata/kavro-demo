@@ -41,7 +41,15 @@ echo "Starting Schema Registry"
 confluent-5.3.2/bin/schema-registry-start confluent-5.3.2/etc/schema-registry/schema-registry.properties > schema-registry.log 2>&1 &
 PID_REGISTRY="$!"
 
-echo "All services running"
+poll "Waiting for Schema Registry to be fully up" lsof -i:8081
+
+# Steve's research found this setting was necessary for our use case.
+echo "Adding the Schema registry setting to allow different schemas on a topic"
+curl -X PUT -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+    --data '{"compatibility": "NONE"}' \
+    http://localhost:8081/config
+
+echo -e "\nAll services running"
 
 trap ctrl_c INT
 
