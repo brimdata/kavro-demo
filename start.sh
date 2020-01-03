@@ -60,10 +60,15 @@ trap ctrl_c INT
 
 function ctrl_c() {
   echo
-  echo "Killing all processes"
-  kill -9 "$PID_REGISTRY" || true
-  kill -9 "$PID_KAFKA" || true
-  kill -9 "$PID_ZOOKEEPER" || true
+  "$DIR"/bin/schema-registry-stop
+  echo "Waiting for Schema Registry to fully stop" 
+  wait "$PID_REGISTRY" || true
+  "$DIR"/bin/kafka-server-stop
+  echo "Waiting for Kafka to fully stop"
+  wait "$PID_KAFKA" || true
+  echo "Waiting for Zookeeper to fully stop"
+  "$DIR"/bin/zookeeper-server-stop
+  wait "$PID_ZOOKEEPER" || true
   echo "Done!"
 }
 
